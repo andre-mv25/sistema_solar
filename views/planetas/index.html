@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Solar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0a0e27 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .sun-card {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 2.5rem;
+            border-radius: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sun-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(249, 212, 35, 0.3);
+        }
+
+        .sun-card img {
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 0 30px rgba(249, 212, 35, 0.5));
+        }
+
+        .sun-card h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+            color: #f9d423;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-top: 0.3rem;
+        }
+
+        .planets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .planet-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: default;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .planet-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .planet-card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 0.8rem;
+            transition: transform 0.5s ease;
+        }
+
+        .planet-card:hover img {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .planet-card .name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .planet-card .info {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .planets-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .planet-card img { width: 80px; height: 80px; }
+            .sun-card img { width: 90px; height: 90px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <header>
+            <div class="sun-card">
+                <img src="/sol.webp" alt="Sol">
+                <h1>Sistema Solar</h1>
+                <div class="subtitle">Nuestro hogar en el universo</div>
+            </div>
+        </header>
+
+        <div class="planets-grid">
+            <div class="planet-card">
+                <img src="/mercurio.webp" alt="Mercurio">
+                <div class="name">Mercurio</div>
+                <div class="info">El más cercano al Sol</div>
+            </div>
+            <div class="planet-card">
+                <img src="/venus.webp" alt="Venus">
+                <div class="name">Venus</div>
+                <div class="info">El más caliente</div>
+            </div>
+            <div class="planet-card">
+                <img src="/tierra.webp" alt="Tierra">
+                <div class="name">Tierra</div>
+                <div class="info">Nuestro planeta</div>
+            </div>
+            <div class="planet-card">
+                <img src="/marte.webp" alt="Marte">
+                <div class="name">Marte</div>
+                <div class="info">El planeta rojo</div>
+            </div>
+            <div class="planet-card">
+                <img src="/jupiter.webp" alt="Júpiter">
+                <div class="name">Júpiter</div>
+                <div class="info">El más grande</div>
+            </div>
+            <div class="planet-card">
+                <img src="/saturno.webp" alt="Saturno">
+                <div class="name">Saturno</div>
+                <div class="info">El de los anillos</div>
+            </div>
+            <div class="planet-card">
+                <img src="/urano.webp" alt="Urano">
+                <div class="name">Urano</div>
+                <div class="info">El inclinado</div>
+            </div>
+            <div class="planet-card">
+                <img src="/neptuno.webp" alt="Neptuno">
+                <div class="name">Neptuno</div>
+                <div class="info">El más lejano</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
