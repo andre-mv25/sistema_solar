@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= titulo %></title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0a0e27 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 6rem;
+            font-weight: 200;
+            color: #f9d423;
+            letter-spacing: 10px;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        a {
+            color: #f9d423;
+            text-decoration: none;
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            border: 1px solid rgba(249, 212, 35, 0.3);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: rgba(249, 212, 35, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <p>La página que buscas no existe</p>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>
