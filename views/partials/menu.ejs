@@ -3,11 +3,18 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="/" class="nav-logo">
-            <span class="logo-icon">☀️</span>
-            <span class="logo-text">
-                <span class="top">Sistema Solar</span>
-                <span class="bottom">Explora el universo</span>
+            <span class="sun-icon">
+                <span class="sun-core"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
+                <span class="sun-ray"></span>
             </span>
+            <span class="logo-text"><span class="logo-accent">Sistema</span> Solar</span>
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
             <span></span>
@@ -19,22 +26,27 @@
             <% paginas.forEach(pagina => { %>
                 <li>
                     <a href="<%= pagina.ruta %>" class="<%= paginaActual === pagina.ruta ? 'active' : '' %>">
+                        <span class="indicator"></span>
                         <%= pagina.nombre %>
                     </a>
                 </li>
             <% }) %>
             <li>
-                <a href="/sol" class="<%= paginaActual === '/sol' ? 'active' : '' %>">El Sol</a>
+                <a href="/sol" class="<%= paginaActual === '/sol' ? 'active' : '' %>">
+                    <span class="indicator"></span>
+                    El Sol
+                </a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle <%= paginaActual && paginaActual.startsWith('/planeta') ? 'active' : '' %>">
+                    <span class="indicator"></span>
                     Planetas <span class="arrow">▼</span>
                 </a>
                 <ul class="dropdown-menu">
                     <% planetas.forEach(planeta => { %>
                         <li>
                             <a href="/planeta/<%= planeta.slug %>" class="<%= paginaActual === '/planeta/' + planeta.slug ? 'active' : '' %>">
-                                <span class="dot" style="background:<%= planeta.color %>;color:<%= planeta.color %>"></span>
+                                <span class="dot" style="background:<%= planeta.color %>"></span>
                                 <%= planeta.nombre %>
                             </a>
                         </li>
@@ -94,10 +106,13 @@
         }
     });
 
-    var navLinksItems = links.querySelectorAll('a:not(.dropdown-toggle)');
+    var navLinksItems = links.querySelectorAll('a');
     navLinksItems.forEach(function(a) {
-        a.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
+        a.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && links.classList.contains('open') && !this.closest('.dropdown') && !this.classList.contains('dropdown-toggle')) {
+                closeMenu();
+            }
+            if (window.innerWidth <= 768 && this.closest('.dropdown-menu')) {
                 closeMenu();
             }
         });
