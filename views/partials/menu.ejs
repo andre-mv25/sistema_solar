@@ -1,3 +1,5 @@
+<%- include('menu-css') %>
+
 <nav class="navbar">
     <div class="nav-container">
         <a href="/" class="nav-logo">
@@ -9,7 +11,7 @@
             <span></span>
             <span></span>
         </button>
-        <ul class="nav-links">
+        <ul class="nav-links" id="navLinks">
             <% paginas.forEach(pagina => { %>
                 <li>
                     <a href="<%= pagina.ruta %>" class="<%= paginaActual === pagina.ruta ? 'active' : '' %>">
@@ -38,3 +40,35 @@
         </ul>
     </div>
 </nav>
+
+<script>
+(function() {
+    var toggle = document.getElementById('navToggle');
+    var links = document.getElementById('navLinks');
+    var dropdowns = links.querySelectorAll('.dropdown');
+
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            links.classList.toggle('open');
+        });
+    }
+
+    dropdowns.forEach(function(d) {
+        var link = d.querySelector('.dropdown-toggle');
+        link.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                d.classList.toggle('open');
+            }
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (toggle && !toggle.contains(e.target) && !links.contains(e.target)) {
+            toggle.classList.remove('active');
+            links.classList.remove('open');
+        }
+    });
+})();
+</script>
