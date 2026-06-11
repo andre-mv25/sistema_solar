@@ -4,13 +4,17 @@
     <div class="nav-container">
         <a href="/" class="nav-logo">
             <span class="logo-icon">☀️</span>
-            <span>Sistema Solar</span>
+            <span class="logo-text">
+                <span class="top">Sistema Solar</span>
+                <span class="bottom">Explora el universo</span>
+            </span>
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
             <span></span>
             <span></span>
             <span></span>
         </button>
+        <div class="nav-overlay" id="navOverlay"></div>
         <ul class="nav-links" id="navLinks">
             <% paginas.forEach(pagina => { %>
                 <li>
@@ -30,7 +34,7 @@
                     <% planetas.forEach(planeta => { %>
                         <li>
                             <a href="/planeta/<%= planeta.slug %>" class="<%= paginaActual === '/planeta/' + planeta.slug ? 'active' : '' %>">
-                                <span class="dot" style="background:<%= planeta.color %>"></span>
+                                <span class="dot" style="background:<%= planeta.color %>;color:<%= planeta.color %>"></span>
                                 <%= planeta.nombre %>
                             </a>
                         </li>
@@ -45,13 +49,33 @@
 (function() {
     var toggle = document.getElementById('navToggle');
     var links = document.getElementById('navLinks');
+    var overlay = document.getElementById('navOverlay');
     var dropdowns = links.querySelectorAll('.dropdown');
+
+    function closeMenu() {
+        toggle.classList.remove('active');
+        links.classList.remove('open');
+        overlay.classList.remove('show');
+    }
+
+    function openMenu() {
+        toggle.classList.add('active');
+        links.classList.add('open');
+        overlay.classList.add('show');
+    }
 
     if (toggle) {
         toggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            links.classList.toggle('open');
+            if (links.classList.contains('open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
+    }
+
+    if (overlay) {
+        overlay.addEventListener('click', closeMenu);
     }
 
     dropdowns.forEach(function(d) {
@@ -64,11 +88,19 @@
         });
     });
 
-    document.addEventListener('click', function(e) {
-        if (toggle && !toggle.contains(e.target) && !links.contains(e.target)) {
-            toggle.classList.remove('active');
-            links.classList.remove('open');
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && links.classList.contains('open')) {
+            closeMenu();
         }
+    });
+
+    var navLinksItems = links.querySelectorAll('a:not(.dropdown-toggle)');
+    navLinksItems.forEach(function(a) {
+        a.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                closeMenu();
+            }
+        });
     });
 })();
 </script>
