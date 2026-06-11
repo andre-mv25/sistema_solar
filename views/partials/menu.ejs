@@ -3,18 +3,9 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="/" class="nav-logo">
-            <span class="sun-icon">
-                <span class="sun-core"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-                <span class="sun-ray"></span>
-            </span>
-            <span class="logo-text"><span class="logo-accent">Sistema</span> Solar</span>
+            <span class="logo-symbol">✦</span>
+            <span>SS</span>
+            <span class="logo-full">SISTEMA SOLAR</span>
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
             <span></span>
@@ -26,21 +17,21 @@
             <% paginas.forEach(pagina => { %>
                 <li>
                     <a href="<%= pagina.ruta %>" class="<%= paginaActual === pagina.ruta ? 'active' : '' %>">
-                        <span class="indicator"></span>
+                        <span class="stardust"></span>
                         <%= pagina.nombre %>
                     </a>
                 </li>
             <% }) %>
             <li>
                 <a href="/sol" class="<%= paginaActual === '/sol' ? 'active' : '' %>">
-                    <span class="indicator"></span>
+                    <span class="stardust"></span>
                     El Sol
                 </a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle <%= paginaActual && paginaActual.startsWith('/planeta') ? 'active' : '' %>">
-                    <span class="indicator"></span>
-                    Planetas <span class="arrow">▼</span>
+                    <span class="stardust"></span>
+                    Planetas <span class="dropdown-arrow">▼</span>
                 </a>
                 <ul class="dropdown-menu">
                     <% planetas.forEach(planeta => { %>
@@ -78,11 +69,7 @@
 
     if (toggle) {
         toggle.addEventListener('click', function() {
-            if (links.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
+            links.classList.contains('open') ? closeMenu() : openMenu();
         });
     }
 
@@ -101,20 +88,18 @@
     });
 
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && links.classList.contains('open')) {
-            closeMenu();
-        }
+        if (e.key === 'Escape' && links.classList.contains('open')) closeMenu();
     });
 
-    var navLinksItems = links.querySelectorAll('a');
-    navLinksItems.forEach(function(a) {
-        a.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768 && links.classList.contains('open') && !this.closest('.dropdown') && !this.classList.contains('dropdown-toggle')) {
-                closeMenu();
-            }
-            if (window.innerWidth <= 768 && this.closest('.dropdown-menu')) {
-                closeMenu();
-            }
+    links.querySelectorAll('.dropdown-menu a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            if (window.innerWidth <= 768) closeMenu();
+        });
+    });
+
+    links.querySelectorAll('a:not(.dropdown-toggle)').forEach(function(a) {
+        a.addEventListener('click', function() {
+            if (window.innerWidth <= 768 && links.classList.contains('open')) closeMenu();
         });
     });
 })();
